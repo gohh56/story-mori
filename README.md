@@ -17,6 +17,12 @@ If you manage multiple node versions, please use (nvm)[https://github.com/creati
 $ brew install mysql
 ```
 
+### yarn
+
+```bash
+$ brew install yarn
+```
+
 ### server
 
 ```bash
