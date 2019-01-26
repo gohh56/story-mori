@@ -1,16 +1,32 @@
 <template>
   <div class="story-list-container">
-    here comes story list
+    <ul>
+      <li>新規ストーリー</li>
+      <li v-for="story of stories" v-bind:key="story.id">{{story.title}}</li>
+    </ul>
   </div>
 </template>
 
 <script>
+import { getStories } from '@/lib/api-service'
+
 export default {
-  name: 'StoryList',
+  name: "StoryList",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      stories: []
+    };
+  },
+  created: function() {
+    // get story list from server
+    const stories = getStories();
+    // set component stories to the result of the request
+    this.stories = stories;
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
