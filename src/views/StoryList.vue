@@ -1,7 +1,7 @@
 <template>
   <div class="story-list-container">
     <ul>
-      <li>新規ストーリー</li>
+      <router-link tag="li" :to="{name: 'storyCreate'}"><a>新規ストーリー</a></router-link>
       <li v-for="story of stories" v-bind:key="story.id">{{story.title}}</li>
     </ul>
   </div>
