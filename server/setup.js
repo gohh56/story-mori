@@ -1,17 +1,11 @@
-// const db = require('./db/connection');
+const db = require('./db/connection');
 
 const setup = function(app) {
   app.use('/api/stories', async (req, res, next) => {
-    const stories = [
-      { id: 1, title: "Story 1" },
-      { id: 2, title: "Story 2" },
-      { id: 3, title: "Story 3" },
-      { id: 4, title: "Story 4" },
-      { id: 5, title: "Story 5" },
-      { id: 6, title: "Story 6" }
-    ];
-    
-    res.json(stories);
+    const connection = await db.getConnection();
+    const [results] = await connection.query('select * from stories');
+
+    res.json(results);
   });
 };
 
