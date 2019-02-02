@@ -20,10 +20,8 @@ export default {
       stories: []
     };
   },
-  created: function() {
-    // get story list from server
-    const stories = getStories();
-    // set component stories to the result of the request
+  created: async function() {
+    const stories = await getStories();
     this.stories = stories;
   }
 };
