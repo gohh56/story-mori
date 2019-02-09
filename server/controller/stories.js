@@ -29,9 +29,10 @@ const saveStory = async (req, res, next) => {
     text,
     storyId
   ]);
+  const pageId = pageResults.insertId;
 
   // return story id / story object
-  res.json({ id: storyId });
+  res.json({ storyId, pageId });
 }
 
 module.exports = {
