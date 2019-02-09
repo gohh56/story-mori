@@ -13,7 +13,7 @@ const getPage = async (req, res, next) => {
   results[0].children = children;
 
   res.json(results[0]);
-}
+};
 
 const savePage = async (req, res, next) => {
   // get parameters
@@ -21,8 +21,7 @@ const savePage = async (req, res, next) => {
 
   // save story in database
   const connection = await db.getConnection();
-  const insertStoryQuery =
-    'insert into stories (title, summary) values (?, ?)';
+  const insertStoryQuery = 'insert into stories (title, summary) values (?, ?)';
   const [storyResults] = await connection.query(insertStoryQuery, [
     title,
     text.slice(0, 10)
@@ -41,9 +40,9 @@ const savePage = async (req, res, next) => {
 
   // return story id / story object
   res.json({ storyId, pageId });
-}
+};
 
 module.exports = {
   getPage,
-  savePage,
-}
+  savePage
+};
