@@ -30,9 +30,9 @@ export default {
         title,
         text
       };
-      const { id } = await saveStory(story);
-      console.log(id);
-      // TODO: Redirect to story page
+      const { storyId, pageId } = await saveStory(story);
+      // Redirect to story page
+      this.$router.push({ name: "storyPage", params: { storyId, pageId } });
     }
   }
 };

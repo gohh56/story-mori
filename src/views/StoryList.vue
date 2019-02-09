@@ -12,9 +12,6 @@ import { getStories } from '@/lib/api-service'
 
 export default {
   name: "StoryList",
-  props: {
-    msg: String
-  },
   data() {
     return {
       stories: []
