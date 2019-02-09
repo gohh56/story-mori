@@ -30,8 +30,8 @@ export default {
         title,
         text
       };
-      const { id } = await saveStory(story);
-      console.log(id);
+      const { storyId, pageId } = await saveStory(story);
+      console.log(storyId, pageId);
       // TODO: Redirect to story page
     }
   }
