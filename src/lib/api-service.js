@@ -14,3 +14,8 @@ export const saveStory = async function(story) {
 
   return resp.json();
 }
+
+export const getPage = async function(storyId, pageId) {
+  const resp = await fetch(`/api/stories/${storyId}/pages/${pageId}`);
+  return resp.json();
+}
