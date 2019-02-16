@@ -7,7 +7,7 @@ const getPage = async (req, res, next) => {
   const query = 'select id, name, text from pages where id = ?';
   const [results] = await connection.query(query, [pageId]);
 
-  const childrenQuery = 'select id, name from pages where parent = ?';
+  const childrenQuery = 'select id, name from pages where parent_id = ?';
   const [children] = await connection.query(childrenQuery, [pageId]);
 
   results[0].children = children;
@@ -15,31 +15,32 @@ const getPage = async (req, res, next) => {
   res.json(results[0]);
 };
 
+/**
+ * POST /api/stories/:storyId/pages/:parentId/next
+ * 
+ * @apiParam {Number} storyId The story id 
+ * @apiParam {Number} parentId The parent page id 
+ * @apiParam {String} name The page name 
+ * @apiParam {String} text The page text
+ */
 const savePage = async (req, res, next) => {
   // get parameters
-  const { title, text } = req.body;
+  const { storyId, parentId } = req.params;
+  const { name, text } = req.body;
 
-  // save story in database
+  // save page in database
   const connection = await db.getConnection();
-  const insertStoryQuery = 'insert into stories (title, summary) values (?, ?)';
-  const [storyResults] = await connection.query(insertStoryQuery, [
-    title,
-    text.slice(0, 10)
-  ]);
-  const storyId = storyResults.insertId;
-
-  // save first page in database
-  const insertPageQuery =
-    'insert into pages (name, text, story_id) values (?, ?, ?)';
+  const insertPageQuery = 'insert into pages (name, text, story_id, parent_id) values (?, ?, ?, ?)';
   const [pageResults] = await connection.query(insertPageQuery, [
-    title,
+    name,
     text,
-    storyId
+    storyId,
+    parentId,
   ]);
-  const pageId = pageResults.insertId;
+  const id = pageResults.insertId;
 
-  // return story id / story object
-  res.json({ storyId, pageId });
+  // return page id
+  res.json({ id });
 };
 
 module.exports = {

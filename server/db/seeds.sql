@@ -14,6 +14,6 @@ INSERT INTO `stories` (`id`, `title`, `summary`) VALUES (11,"story 11", "This is
 INSERT INTO `stories` (`id`, `title`, `summary`) VALUES (12,"story 12", "This is story 12");
 INSERT INTO `stories` (`id`, `title`, `summary`) VALUES (13,"story 13", "This is story 13");
 
-INSERT INTO `pages` (`id`, `name`, `text`, `story_id`, `parent`) VALUES (1,"hoge", "hoge page", 1, null);
-INSERT INTO `pages` (`id`, `name`, `text`, `story_id`, `parent`) VALUES (2,"fuga", "fuga page", 1, 1);
-INSERT INTO `pages` (`id`, `name`, `text`, `story_id`, `parent`) VALUES (3, "あ", "るコール", 1, 1);
+INSERT INTO `pages` (`id`, `name`, `text`, `story_id`, `parent_id`) VALUES (1,"hoge", "hoge page", 1, null);
+INSERT INTO `pages` (`id`, `name`, `text`, `story_id`, `parent_id`) VALUES (2,"fuga", "fuga page", 1, 1);
+INSERT INTO `pages` (`id`, `name`, `text`, `story_id`, `parent_id`) VALUES (3, "あ", "るコール", 1, 1);

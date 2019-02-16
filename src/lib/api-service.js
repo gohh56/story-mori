@@ -8,7 +8,7 @@ export const saveStory = async function(story) {
     method: "post",
     body: JSON.stringify(story),
     headers: {
-      "Content-Type": "application/json; charset=utf-8"
+      "Content-Type": "application/json"
     }
   });
 
@@ -19,3 +19,14 @@ export const getPage = async function(storyId, pageId) {
   const resp = await fetch(`/api/stories/${storyId}/pages/${pageId}`);
   return resp.json();
 }
+
+export const savePage = async function(storyId, parentId, name, text) {
+  const resp = await fetch(`/api/stories/${storyId}/pages/${parentId}/next`, {
+    method: "post",
+    body: JSON.stringify({ name, text }),
+    headers: {
+      "Content-Type": "application/json"
+    },
+  });
+  return resp.json();
+};

@@ -2,9 +2,9 @@
   <div class="story-create-container">
     <router-link :to="{name: 'storyList'}">キャンセル</router-link>
     <h2>New Story</h2>
-    <form v-on:submit.prevent="saveStory">
-      <input v-model="title" placeholder="Title...">
-      <textarea v-model="text" placeholder="First Page..."/>
+    <form @submit.prevent="saveStory">
+      <input v-model.trim="title" placeholder="Title...">
+      <textarea v-model.trim="text" placeholder="First Page..."/>
       <button type="submit">Create new story</button>
     </form>
   </div>
@@ -31,8 +31,7 @@ export default {
         text
       };
       const { storyId, pageId } = await saveStory(story);
-      console.log(storyId, pageId);
-      // TODO: Redirect to story page
+      this.$router.push({ name: "page", params: { storyId, pageId } });
     }
   }
 };

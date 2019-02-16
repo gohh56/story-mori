@@ -12,11 +12,18 @@
         <a>{{ nextPage.name }}</a>
       </router-link>
     </ul>
+    <button @click="toggleForm">{{ formToggleTitle }}</button>
+    <form v-show="isFormShown" @submit.prevent="savePage">
+      <h2>New Page</h2>
+      <input v-model.trim="nextPageName" placeholder="Name...">
+      <textarea v-model.trim="nextPageText" placeholder="Text..."/>
+      <button type="submit">Create new page</button>
+    </form>
   </div>
 </template>
 
 <script>
-import { getPage } from "@/lib/api-service";
+import { getPage, savePage } from "@/lib/api-service";
 
 export default {
   name: "Page",
@@ -24,8 +31,16 @@ export default {
     return {
       pageName: "",
       pageText: "",
-      nextPages: []
+      nextPages: [],
+      nextPageName: "",
+      nextPageText: "",
+      isFormShown: false
     };
+  },
+  computed: {
+    formToggleTitle: function() {
+      return this.isFormShown ? "Hide form" : "Create New Page";
+    }
   },
   methods: {
     getPage: async function() {
@@ -34,6 +49,22 @@ export default {
       this.pageName = page.name;
       this.pageText = page.text;
       this.nextPages = page.children;
+    },
+    savePage: async function(/* event */) {
+      const { storyId, pageId: parentId } = this.$route.params;
+      const name = this.nextPageName;
+      const text = this.nextPageText;
+      const { id: pageId } = await savePage(storyId, parentId, name, text);
+      this.resetForm();
+      this.$router.push({ name: "page", params: { pageId: pageId } });
+    },
+    resetForm: function() {
+      this.nextPageName = "";
+      this.nextPageText = "";
+      this.isFormShown = false;
+    },
+    toggleForm: function() {
+      this.isFormShown = !this.isFormShown; // toggleならこういう書き方がよくする
     }
   },
   created: async function() {
